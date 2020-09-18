@@ -27,6 +27,7 @@ namespace MongoDBSampleAPI
         {
             services.AddControllers();
             services.AddSingleton<IMongoDBRepository, MongoDBRepository>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +37,14 @@ namespace MongoDBSampleAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MongoDb POC API");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
