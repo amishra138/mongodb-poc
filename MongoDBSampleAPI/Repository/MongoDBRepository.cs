@@ -28,5 +28,23 @@ namespace MongoDBSampleAPI.Repository
 
             return collection.Find(new BsonDocument()).ToList();
         }
+
+        public bool Insert(string item)
+        {
+            try
+            {
+                var collection = _database.GetCollection<BsonDocument>(COLLECTION_NAME);
+
+                BsonDocument document = BsonDocument.Parse(item);
+
+                collection.InsertOne(document);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -19,6 +19,10 @@ namespace MongoDBSampleAPI.Controllers
             _dBRepository = dBRepository;
         }
 
+        /// <summary>
+        /// Get all documents from a collection
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<object> Get()
         {
@@ -32,6 +36,19 @@ namespace MongoDBSampleAPI.Controllers
             }
 
             return _list;
+        }
+
+        /// <summary>
+        /// To insert JSON doc into collection
+        /// </summary>
+        /// <param name="document">JSON string</param>
+        /// <returns>true or false</returns>
+        [HttpPost]
+        public IActionResult Insert([FromBody]object document)
+        {
+            var result = _dBRepository.Insert(document.ToJson());
+
+            return Ok(result);
         }
     }
 }
